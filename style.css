@@ -1,61 +1,431 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #fef3c7;
+  font-family: "Microsoft YaHei", Arial, sans-serif;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, #fff7ed, transparent 34%),
+    radial-gradient(circle at bottom right, #dbeafe, transparent 36%),
+    linear-gradient(135deg, #fff7d6, #ffe4e6, #e0f2fe);
+  color: #3a2a1d;
+  overflow-x: hidden;
+}
+
+.page {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 28px;
+}
+
+.card {
+  position: relative;
+  width: min(720px, 96vw);
+  min-height: 650px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 3px solid rgba(255, 255, 255, 0.9);
+  border-radius: 38px;
+  padding: 34px 26px 38px;
+  text-align: center;
+  box-shadow: 0 28px 70px rgba(148, 90, 30, 0.18);
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border: 2px dashed rgba(245, 158, 11, 0.26);
+  border-radius: 28px;
+  pointer-events: none;
+}
+
+.speech {
+  position: relative;
+  display: inline-block;
+  max-width: 90%;
+  background: white;
+  border-radius: 24px;
+  padding: 16px 24px;
+  font-size: 20px;
+  line-height: 1.6;
+  box-shadow: 0 12px 28px rgba(120, 72, 24, 0.12);
+  z-index: 2;
+}
+
+.speech::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -11px;
+  width: 22px;
+  height: 22px;
+  background: white;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.dog-wrap {
+  position: relative;
+  height: 260px;
+  display: grid;
+  place-items: center;
+  margin-top: 12px;
+  z-index: 2;
+}
+
+.emoji-dog {
+  font-size: 170px;
+  line-height: 1;
+  filter: drop-shadow(0 18px 18px rgba(120, 72, 24, 0.18));
+  animation: dogBreathe 2.2s ease-in-out infinite;
+  transform-origin: center bottom;
+  user-select: none;
+}
+
+.dog-mood {
+  position: absolute;
+  bottom: 36px;
+  right: 22%;
+  font-size: 38px;
+  animation: moodPop 1.4s ease-in-out infinite;
+  user-select: none;
+}
+
+h1 {
+  margin: 10px 0 8px;
+  font-size: clamp(30px, 6vw, 50px);
+  line-height: 1.2;
+  position: relative;
+  z-index: 2;
+}
+
+#subtitle {
+  margin: 0 auto 22px;
+  max-width: 520px;
+  font-size: 17px;
+  opacity: 0.74;
+  line-height: 1.7;
+  position: relative;
+  z-index: 2;
+}
+
+.buttons {
+  position: relative;
+  min-height: 92px;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-}
-
-.game {
-  width: 90%;
-  max-width: 520px;
-  text-align: center;
-  background: white;
-  padding: 32px;
-  border-radius: 24px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-}
-
-.character {
-  font-size: 90px;
-  margin: 24px 0;
-  transition: transform 0.25s;
-}
-
-.character.jump {
-  animation: jump 0.45s ease;
-}
-
-.character.spin {
-  animation: spin 0.6s ease;
+  gap: 18px;
+  z-index: 5;
 }
 
 button {
-  margin: 8px;
-  padding: 12px 18px;
   border: none;
-  border-radius: 999px;
-  background: #f59e0b;
-  color: white;
-  font-size: 16px;
   cursor: pointer;
+  border-radius: 999px;
+  padding: 15px 28px;
+  font-size: 18px;
+  font-weight: 700;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
 }
 
 button:hover {
-  transform: scale(1.05);
+  transform: translateY(-3px) scale(1.04);
 }
 
-@keyframes jump {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-35px); }
-  100% { transform: translateY(0); }
+button:active {
+  transform: translateY(3px) scale(0.98);
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg) scale(1); }
-  50% { transform: rotate(180deg) scale(1.2); }
-  100% { transform: rotate(360deg) scale(1); }
+.yes-btn {
+  background: #fb923c;
+  color: white;
+  box-shadow: 0 8px 0 #c2410c;
 }
 
+.no-btn {
+  background: white;
+  color: #7c2d12;
+  border: 2px solid #fed7aa;
+  box-shadow: 0 8px 0 #fdba74;
+}
+
+.no-btn.running {
+  position: fixed;
+  z-index: 20;
+  transition: left 0.25s ease, top 0.25s ease, transform 0.18s ease;
+}
+
+.result {
+  position: relative;
+  z-index: 2;
+  margin: 18px auto 0;
+  max-width: 540px;
+  background: rgba(255, 247, 237, 0.95);
+  border: 2px solid #fed7aa;
+  border-radius: 28px;
+  padding: 22px;
+  box-shadow: 0 14px 34px rgba(120, 72, 24, 0.12);
+  animation: resultIn 0.65s ease forwards;
+}
+
+.result h2 {
+  margin: 0 0 8px;
+  font-size: 28px;
+}
+
+.result p {
+  margin: 0 0 18px;
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+.hug-btn {
+  background: #60a5fa;
+  color: white;
+  box-shadow: 0 8px 0 #2563eb;
+}
+
+.hidden {
+  display: none;
+}
+
+.float-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 50;
+}
+
+.float-item {
+  position: fixed;
+  font-size: 28px;
+  animation: floatUp 1.6s ease-out forwards;
+}
+
+.card.success {
+  animation: cardHappy 0.8s ease;
+}
+
+.card.success .emoji-dog {
+  animation: dogCelebrate 0.85s ease infinite;
+}
+
+.card.nervous .emoji-dog {
+  animation: dogNervous 0.35s ease;
+}
+
+@keyframes dogBreathe {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-6px) scale(1.035);
+  }
+}
+
+@keyframes moodPop {
+  0%, 100% {
+    transform: translateY(0) rotate(-8deg);
+  }
+
+  50% {
+    transform: translateY(-8px) rotate(8deg);
+  }
+}
+
+@keyframes dogNervous {
+  0%, 100% {
+    transform: translateX(0) rotate(0deg);
+  }
+
+  20% {
+    transform: translateX(-10px) rotate(-5deg);
+  }
+
+  40% {
+    transform: translateX(10px) rotate(5deg);
+  }
+
+  60% {
+    transform: translateX(-8px) rotate(-4deg);
+  }
+
+  80% {
+    transform: translateX(8px) rotate(4deg);
+  }
+}
+
+@keyframes dogCelebrate {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+
+  25% {
+    transform: translateY(-14px) rotate(-8deg) scale(1.08);
+  }
+
+  50% {
+    transform: translateY(0) rotate(8deg) scale(1.05);
+  }
+
+  75% {
+    transform: translateY(-10px) rotate(-5deg) scale(1.1);
+  }
+}
+
+.emoji-dog.spin-dog {
+  animation: dogSpin 0.75s ease;
+}
+
+.emoji-dog.tilt-dog {
+  animation: dogTilt 0.75s ease;
+}
+
+.emoji-dog.bounce-dog {
+  animation: dogBounce 0.75s ease;
+}
+
+.emoji-dog.shake-dog {
+  animation: dogShake 0.55s ease;
+}
+
+@keyframes dogSpin {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  50% {
+    transform: rotate(180deg) scale(1.18);
+  }
+
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes dogTilt {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  35% {
+    transform: rotate(-16deg) scale(1.08);
+  }
+
+  70% {
+    transform: rotate(16deg) scale(1.08);
+  }
+}
+
+@keyframes dogBounce {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+
+  45% {
+    transform: translateY(-28px) scale(1.12);
+  }
+}
+
+@keyframes dogShake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+
+  20% {
+    transform: translateX(-10px);
+  }
+
+  40% {
+    transform: translateX(10px);
+  }
+
+  60% {
+    transform: translateX(-8px);
+  }
+
+  80% {
+    transform: translateX(8px);
+  }
+}
+
+@keyframes cardHappy {
+  0% {
+    transform: scale(1);
+  }
+
+  45% {
+    transform: scale(1.025);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes resultIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.8) rotate(0deg);
+  }
+
+  18% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-150px) scale(1.45) rotate(24deg);
+  }
+}
+
+@media (max-width: 620px) {
+  .card {
+    min-height: 630px;
+    padding: 26px 16px 32px;
+  }
+
+  .speech {
+    font-size: 17px;
+  }
+
+  .dog-wrap {
+    height: 230px;
+  }
+
+  .emoji-dog {
+    font-size: 145px;
+  }
+
+  .dog-mood {
+    right: 16%;
+    bottom: 32px;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+
+  button {
+    width: min(260px, 86vw);
+  }
+}

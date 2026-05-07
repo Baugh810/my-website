@@ -3,21 +3,37 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>互动小游戏网页</title>
+  <title>可以成为我的好朋友嘛？</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main class="game">
-    <h1>我的互动小世界</h1>
+  <main class="page">
+    <section class="card">
+      <div id="speech" class="speech">
+        嗨！我有一个小小的问题想问你……
+      </div>
 
-    <div id="character" class="character">🐱</div>
+      <div class="dog-wrap">
+        <div id="emojiDog" class="emoji-dog" aria-label="可爱小狗">🐶</div>
+        <div id="dogMood" class="dog-mood">🐾</div>
+      </div>
 
-    <p id="storyText">小猫正在等待你的选择……</p>
-    <p>能量值：<span id="score">0</span></p>
+      <h1 id="question">可以成为我的好朋友嘛？</h1>
+      <p id="subtitle">点一下按钮，小狗会认真记住你的选择。</p>
 
-    <button id="feedBtn">喂它小鱼干</button>
-    <button id="playBtn">陪它玩</button>
-    <button id="resetBtn">重置</button>
+      <div class="buttons">
+        <button id="yesBtn" class="yes-btn">可以！</button>
+        <button id="noBtn" class="no-btn">不要</button>
+      </div>
+
+      <div id="result" class="result hidden">
+        <h2>好耶！友谊认证成功！</h2>
+        <p>从现在开始，小狗会永远陪你开心、陪你难过、给你加油、提醒你喝水。请记得小狗永远爱着你！</p>
+        <button id="hugBtn" class="hug-btn">摸摸小狗</button>
+      </div>
+    </section>
+
+    <div id="floatLayer" class="float-layer"></div>
   </main>
 
   <script src="script.js"></script>
